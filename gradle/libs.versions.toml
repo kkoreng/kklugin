@@ -1,0 +1,10 @@
+[versions]
+kotlin = "2.3.0"
+shadow = "9.4.1"
+
+[libraries]
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+shadow-gradle-plugin = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "shadow" }
+
+[plugins]
+shadow-jar = { id = "com.gradleup.shadow", version.ref  = "shadow" }
