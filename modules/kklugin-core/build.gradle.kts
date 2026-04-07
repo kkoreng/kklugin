@@ -4,5 +4,5 @@ plugins {
 }
 
 dependencies {
-    compileOnly(libs.shadow.gradle.plugin)
+    implementation(libs.shadow.gradle.plugin)
 }
