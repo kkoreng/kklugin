@@ -8,12 +8,6 @@ import org.gradle.api.Project
 
 class PaperPlugin : KkluginPlugin() {
     override fun onApply(target: Project, extension: KkluginExtension) {
-        val pluginExt = target.extensions.create("paperPlugin", PaperPluginExtension::class.java)
-        target.tasks.register("generatePaperPluginYml", GeneratePaperPluginYamlTask::class.java) { task ->
-            task.group = "kklugin"
-            task.description = "Generate paper-plugin.yml"
-            task.extension.set(pluginExt)
-            task.outputFile.set(target.layout.projectDirectory.file("src/main/resources/paper-plugin.yml"))
-        }
+
     }
 }
