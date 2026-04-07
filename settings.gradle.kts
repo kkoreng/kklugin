@@ -13,7 +13,6 @@ rootProject.name = "kklugin"
 includeBuild("build-logic")
 include(
     "modules:kklugin-core",
-    "modules:kklugin-bukkit"
+    "modules:kklugin-bukkit",
+    "modules:kklugin-paper"
 )
-
-include("modules:kklugin-paper")
