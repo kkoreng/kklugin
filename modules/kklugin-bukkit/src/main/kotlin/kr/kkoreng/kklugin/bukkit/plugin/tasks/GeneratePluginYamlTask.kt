@@ -1,24 +1,24 @@
-package kr.kkoreng.kklugin.bukkit.tasks
+package kr.kkoreng.kklugin.bukkit.plugin.tasks
 
-import kr.kkoreng.kklugin.bukkit.extension.BukkitPluginExtension
-import kr.kkoreng.kklugin.core.GenerateMetadataTask
+import kr.kkoreng.kklugin.bukkit.plugin.extension.PluginExtension
+import kr.kkoreng.kklugin.core.tasks.GenerateMetadataTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Nested
 
 abstract class GeneratePluginYamlTask : GenerateMetadataTask() {
 
-    @get:Nested
-    abstract val extension: Property<BukkitPluginExtension>
+    @get:Nested abstract val extension: Property<PluginExtension>
 
-    override fun generate() {
+    override fun buildContent(): String {
         val ext = extension.get()
-
-        val pluginYamlContent = buildString {
+        return buildString {
             appendLine("name: ${ext.name.get()}")
             appendLine("version: ${ext.version.get()}")
             appendLine("main: ${ext.main.get()}")
 
+            appendIfPresent("api-version", ext.apiVersion)
             appendIfPresent("description", ext.description)
+            appendIfPresent("prefix", ext.prefix)
             appendIfPresent("website", ext.website)
 
             val authors = ext.authors.get()
@@ -30,11 +30,24 @@ abstract class GeneratePluginYamlTask : GenerateMetadataTask() {
                 }
             }
 
+            appendList("contributors", ext.contributors.get())
+
             ext.load.orNull?.let { appendLine("load: $it") }
 
             appendList("depend", ext.depend.get())
             appendList("softdepend", ext.softDepend.get())
             appendList("loadbefore", ext.loadBefore.get())
+            appendList("provides", ext.provides.get())
+
+            appendList("libraries", ext.libraries.get())
+
+            ext.foliaSupported.orNull?.let { appendLine("folia-supported: $it") }
+            appendIfPresent("paperPluginLoader", ext.paperPluginLoader)
+            ext.paperSkipLibraries.orNull?.let { appendLine("paper-skip-libraries: $it") }
+
+            ext.defaultPermission.orNull?.let {
+                appendLine("default-permission: ${it.name.lowercase().replace("_", " ")}")
+            }
 
             if (ext.commands.isNotEmpty()) {
                 appendLine("commands:")
@@ -60,8 +73,6 @@ abstract class GeneratePluginYamlTask : GenerateMetadataTask() {
                 }
             }
         }
-
-        outputFile.get().asFile.writeText(pluginYamlContent)
     }
 
     private fun StringBuilder.appendIfPresent(key: String, property: Property<String>) {
