@@ -9,6 +9,7 @@ abstract class KkluginPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         val extension = target.extensions.create("kklugin", KkluginExtension::class.java)
 
+        target.pluginManager.apply("java-library")
         target.pluginManager.apply("com.gradleup.shadow")
         target.tasks.named("shadowJar", ShadowJar::class.java) { task ->
             task.onlyIf { extension.build.shadow.get() }

@@ -1,4 +1,4 @@
-package kr.kkoreng.kklugin.core
+package kr.kkoreng.kklugin.core.tasks
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
@@ -13,7 +13,11 @@ abstract class GenerateMetadataTask: DefaultTask() {
     @get:OutputFile
     abstract val outputFile: RegularFileProperty
 
+    abstract fun buildContent(): String
+
     @TaskAction
-    abstract fun generate()
+    fun generate() {
+        outputFile.get().asFile.writeText(buildContent())
+    }
 
 }

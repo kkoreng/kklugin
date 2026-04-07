@@ -1,4 +1,4 @@
-package kr.kkoreng.kklugin.bukkit.extension.command
+package kr.kkoreng.kklugin.bukkit.plugin.extension.spec
 
 abstract class CommandSpec(val name: String) {
     var description: String? = null
