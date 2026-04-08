@@ -1,7 +1,7 @@
 package kr.kkoreng.kklugin.bukkit.plugin.tasks
 
 import kr.kkoreng.kklugin.bukkit.plugin.extension.PluginExtension
-import kr.kkoreng.kklugin.core.tasks.GenerateMetadataTask
+import kr.kkoreng.kklugin.core.plugin.tasks.GenerateMetadataTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Nested
 
@@ -18,8 +18,7 @@ abstract class GeneratePluginYamlTask : GenerateMetadataTask() {
 
             appendIfPresent("api-version", ext.apiVersion)
             appendIfPresent("description", ext.description)
-            appendIfPresent("prefix", ext.prefix)
-            appendIfPresent("website", ext.website)
+            ext.load.orNull?.let { appendLine("load: $it") }
 
             val authors = ext.authors.get()
             when {
@@ -31,33 +30,21 @@ abstract class GeneratePluginYamlTask : GenerateMetadataTask() {
             }
 
             appendList("contributors", ext.contributors.get())
-
-            ext.load.orNull?.let { appendLine("load: $it") }
+            appendIfPresent("website", ext.website)
 
             appendList("depend", ext.depend.get())
             appendList("softdepend", ext.softDepend.get())
             appendList("loadbefore", ext.loadBefore.get())
             appendList("provides", ext.provides.get())
 
+            appendIfPresent("prefix", ext.prefix)
             appendList("libraries", ext.libraries.get())
-
             ext.foliaSupported.orNull?.let { appendLine("folia-supported: $it") }
             appendIfPresent("paperPluginLoader", ext.paperPluginLoader)
             ext.paperSkipLibraries.orNull?.let { appendLine("paper-skip-libraries: $it") }
 
             ext.defaultPermission.orNull?.let {
                 appendLine("default-permission: ${it.name.lowercase().replace("_", " ")}")
-            }
-
-            if (ext.commands.isNotEmpty()) {
-                appendLine("commands:")
-                ext.commands.forEach { cmd ->
-                    appendLine("  ${cmd.name}:")
-                    cmd.description?.let { appendLine("    description: $it") }
-                    cmd.usage?.let { appendLine("    usage: $it") }
-                    if (cmd.aliases.isNotEmpty()) appendLine("    aliases: ${cmd.aliases}")
-                    cmd.permission?.let { appendLine("    permission: $it") }
-                }
             }
 
             if (ext.permissions.isNotEmpty()) {
@@ -72,6 +59,19 @@ abstract class GeneratePluginYamlTask : GenerateMetadataTask() {
                     }
                 }
             }
+
+            if (ext.commands.isNotEmpty()) {
+                appendLine("commands:")
+                ext.commands.forEach { cmd ->
+                    appendLine("  ${cmd.name}:")
+                    cmd.description?.let { appendLine("    description: $it") }
+                    cmd.usage?.let { appendLine("    usage: $it") }
+                    if (cmd.aliases.isNotEmpty()) appendLine("    aliases: ${cmd.aliases}")
+                    cmd.permission?.let { appendLine("    permission: $it") }
+                }
+            }
+
+
         }
     }
 

@@ -1,4 +1,4 @@
-package kr.kkoreng.kklugin.core.tasks
+package kr.kkoreng.kklugin.core.plugin.tasks
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty

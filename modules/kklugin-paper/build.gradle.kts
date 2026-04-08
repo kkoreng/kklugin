@@ -8,8 +8,8 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("paper-plugin") {
-            id = "kr.kkoreng.kklugin.paper-plugin"
+        register("paper") {
+            id = "kr.kkoreng.kklugin.paper"
             implementationClass = "kr.kkoreng.kklugin.paper.PaperPlugin"
         }
     }

@@ -19,12 +19,12 @@ abstract class PluginExtension @Inject constructor(objects: ObjectFactory) {
     @get:Input val version: Property<String> = objects.property(String::class.java).convention("1.0.0-SNAPSHOT")
     @get:Input val main: Property<String> = objects.property(String::class.java).convention("com.example.MyPlugin")
 
+    @get:Input @get:Optional val apiVersion: Property<String> = objects.property(String::class.java)
     @get:Input @get:Optional val description: Property<String> = objects.property(String::class.java)
     @get:Input @get:Optional val load: Property<LoadType> = objects.property(LoadType::class.java)
     @get:Input @get:Optional val authors: ListProperty<String> = objects.listProperty(String::class.java)
     @get:Input @get:Optional val contributors: ListProperty<String> = objects.listProperty(String::class.java)
     @get:Input @get:Optional val website: Property<String> = objects.property(String::class.java)
-    @get:Input @get:Optional val apiVersion: Property<String> = objects.property(String::class.java)
 
     @get:Input @get:Optional val depend: ListProperty<String> = objects.listProperty(String::class.java)
     @get:Input @get:Optional val softDepend: ListProperty<String> = objects.listProperty(String::class.java)
