@@ -14,5 +14,6 @@ includeBuild("build-logic")
 include(
     "modules:kklugin-core",
     "modules:kklugin-bukkit",
-    "modules:kklugin-paper"
+    "modules:kklugin-paper",
+    "modules:kklugin-run"
 )

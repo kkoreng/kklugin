@@ -20,8 +20,11 @@ abstract class SetupPluginTask : DefaultTask() {
         val isKts = buildGradleFile.name.endsWith(".gradle.kts")
 
         var text = buildGradleFile.readText()
+        val activeText = text.lines()
+            .filterNot { it.trimStart().startsWith("//") }
+            .joinToString("\n")
 
-        if (!text.contains(repo)) {
+        if (!activeText.contains(repo)) {
             val repoLine = if (isKts) "    maven(\"$repo\")" else "    maven { url '$repo' }"
             val lastIndex = text.lastIndexOf("repositories {")
             text = if (lastIndex != -1) {
@@ -33,7 +36,7 @@ abstract class SetupPluginTask : DefaultTask() {
             }
         }
 
-        if (!text.contains(dep)) {
+        if (!activeText.contains(dep)) {
             val depLine = if (isKts) "    compileOnly(\"$dep\")" else "    compileOnly \"$dep\""
             val lastIndex = text.lastIndexOf("dependencies {")
             text = if (lastIndex != -1) {
