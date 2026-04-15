@@ -10,10 +10,6 @@ import javax.inject.Inject
 
 abstract class BuildPluginJarExtension @Inject constructor(objects: ObjectFactory){
 
-    /**
-     * Whether to create a shadow jar or not.
-     * Default is false.
-     */
     @get:Input val shadow: Property<Boolean> = objects.property(Boolean::class.java).convention(false)
 
     @get:Input @get:Optional val outputDirectory: Property<String> = objects.property(String::class.java)
