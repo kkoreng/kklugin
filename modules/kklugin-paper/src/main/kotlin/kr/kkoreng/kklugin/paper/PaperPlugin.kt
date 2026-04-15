@@ -1,18 +1,26 @@
 package kr.kkoreng.kklugin.paper
 
 import kr.kkoreng.kklugin.core.KkluginPlugin
-import kr.kkoreng.kklugin.core.extension.KkluginExtension
-import kr.kkoreng.kklugin.paper.plugin.extension.PaperPluginExtension
+import kr.kkoreng.kklugin.core.setup.tasks.SetupPluginTask
+import kr.kkoreng.kklugin.paper.extension.PaperKkluginExtension
 import kr.kkoreng.kklugin.paper.plugin.tasks.GeneratePaperPluginYamlTask
 import org.gradle.api.Project
 
-class PaperPlugin : KkluginPlugin() {
-    override fun onApply(target: Project, extension: KkluginExtension) {
-        val pluginExt = target.extensions.create("paper-plugin", PaperPluginExtension::class.java)
+class PaperPlugin : KkluginPlugin<PaperKkluginExtension>() {
 
-        target.tasks.register("generatePaperPluginYml", GeneratePaperPluginYamlTask::class.java) { task ->
-            task.extension.set(pluginExt)
+    override val extensionClass = PaperKkluginExtension::class.java
+
+    override fun onApply(target: Project, extension: PaperKkluginExtension) {
+target.tasks.register("generatePaperPluginYml", GeneratePaperPluginYamlTask::class.java) { task ->
+            task.group = "kklugin"
+            task.extension.set(extension.plugin)
             task.outputFile.set(target.layout.projectDirectory.file("src/main/resources/paper-plugin.yml"))
+        }
+
+        target.tasks.named("setupPlugin", SetupPluginTask::class.java) { task ->
+            task.repositoryUrl.set("https://repo.papermc.io/repository/maven-public/")
+            task.dependency.set(extension.plugin.minecraftVersion.map { "io.papermc.paper:paper-api:$it-R0.1-SNAPSHOT" })
+            task.dependsOn("generatePaperPluginYml")
         }
     }
 }

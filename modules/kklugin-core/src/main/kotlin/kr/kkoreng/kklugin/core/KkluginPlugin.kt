@@ -1,28 +1,47 @@
 package kr.kkoreng.kklugin.core
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import kr.kkoreng.kklugin.core.build.tasks.BuildPluginJarTask
 import kr.kkoreng.kklugin.core.extension.KkluginExtension
+import kr.kkoreng.kklugin.core.setup.tasks.SetupPluginTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
 
-abstract class KkluginPlugin : Plugin<Project> {
+abstract class KkluginPlugin<E : KkluginExtension> : Plugin<Project> {
+
+    abstract val extensionClass: Class<E>
+
     override fun apply(target: Project) {
-        val extension = target.extensions.create("kklugin", KkluginExtension::class.java)
+        val extension = target.extensions.create("kklugin", extensionClass)
 
         target.pluginManager.apply("java-library")
         target.pluginManager.apply("com.gradleup.shadow")
-        target.tasks.named("shadowJar", ShadowJar::class.java) { task ->
-            task.onlyIf { extension.build.shadow.get() }
-            if (extension.build.minimize.get()) task.minimize()
-            extension.build.relocations.get().forEach { (from, to) ->
-                task.relocate(from, to)
+
+        target.afterEvaluate {
+            target.tasks.named("shadowJar", ShadowJar::class.java) { task ->
+                task.onlyIf { extension.build.shadow.get() }
+                if (extension.build.minimize.get()) task.minimize()
+                extension.build.relocations.get().forEach { (from, to) -> task.relocate(from, to) }
+                extension.build.exclude.get().forEach { task.exclude(it) }
             }
-            extension.build.exclude.get().forEach { task.exclude(it) }
+
+        }
+
+        target.tasks.register("buildPluginJar", BuildPluginJarTask::class.java) { task ->
+            task.group = "kklugin"
+            task.extension.set(extension.build)
+            task.dependsOn("shadowJar")
+        }
+
+        target.tasks.register("setupPlugin", SetupPluginTask::class.java) { task ->
+            task.group = "kklugin"
+
         }
 
         onApply(target, extension)
     }
 
-    abstract fun onApply(target: Project, extension: KkluginExtension)
+    abstract fun onApply(target: Project, extension: E)
 
 }
