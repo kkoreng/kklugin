@@ -2,6 +2,7 @@ package kr.kkoreng.kklugin.core.plugin.tasks
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 
@@ -18,6 +19,17 @@ abstract class GenerateMetadataTask: DefaultTask() {
     @TaskAction
     fun generate() {
         outputFile.get().asFile.writeText(buildContent())
+    }
+
+    protected fun StringBuilder.appendIfPresent(key: String, property: Property<String>) {
+        property.orNull?.let { if (it.isNotEmpty()) appendLine("$key: $it") }
+    }
+
+    protected fun StringBuilder.appendList(key: String, list: List<String>) {
+        if (list.isNotEmpty()) {
+            appendLine("$key:")
+            list.forEach { appendLine("  - $it") }
+        }
     }
 
 }

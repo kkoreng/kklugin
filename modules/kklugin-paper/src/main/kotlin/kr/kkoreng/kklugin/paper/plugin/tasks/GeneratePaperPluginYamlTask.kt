@@ -80,14 +80,4 @@ abstract class GeneratePaperPluginYamlTask : GenerateMetadataTask() {
         }
     }
 
-    private fun StringBuilder.appendIfPresent(key: String, property: Property<String>) {
-        property.orNull?.let { if (it.isNotEmpty()) appendLine("$key: $it") }
-    }
-
-    private fun StringBuilder.appendList(key: String, list: List<String>) {
-        if (list.isNotEmpty()) {
-            appendLine("$key:")
-            list.forEach { appendLine("  - $it") }
-        }
-    }
 }
