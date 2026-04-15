@@ -28,7 +28,7 @@ abstract class KkluginPlugin<E : KkluginExtension> : Plugin<Project> {
 
         }
 
-        target.tasks.register("buildPluginJar", BuildPluginJarTask::class.java) { task ->
+        target.tasks.register("buildPlugin", BuildPluginJarTask::class.java) { task ->
             task.group = "kklugin"
             task.extension.set(extension.build)
             task.dependsOn("shadowJar")

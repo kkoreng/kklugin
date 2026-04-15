@@ -11,7 +11,7 @@ class PaperPlugin : KkluginPlugin<PaperKkluginExtension>() {
     override val extensionClass = PaperKkluginExtension::class.java
 
     override fun onApply(target: Project, extension: PaperKkluginExtension) {
-target.tasks.register("generatePaperPluginYml", GeneratePaperPluginYamlTask::class.java) { task ->
+target.tasks.register("generateMetadata", GeneratePaperPluginYamlTask::class.java) { task ->
             task.group = "kklugin"
             task.extension.set(extension.plugin)
             task.outputFile.set(target.layout.projectDirectory.file("src/main/resources/paper-plugin.yml"))
@@ -20,7 +20,7 @@ target.tasks.register("generatePaperPluginYml", GeneratePaperPluginYamlTask::cla
         target.tasks.named("setupPlugin", SetupPluginTask::class.java) { task ->
             task.repositoryUrl.set("https://repo.papermc.io/repository/maven-public/")
             task.dependency.set(extension.plugin.minecraftVersion.map { "io.papermc.paper:paper-api:$it-R0.1-SNAPSHOT" })
-            task.dependsOn("generatePaperPluginYml")
+            task.dependsOn("generateMetadata")
         }
     }
 }
