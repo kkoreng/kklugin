@@ -11,7 +11,7 @@ class PaperPlugin : KkluginPlugin<PaperKkluginExtension>() {
     override val extensionClass = PaperKkluginExtension::class.java
 
     override fun onApply(target: Project, extension: PaperKkluginExtension) {
-target.tasks.register("generateMetadata", GeneratePaperPluginYamlTask::class.java) { task ->
+        target.tasks.register("generateMetadata", GeneratePaperPluginYamlTask::class.java) { task ->
             task.group = "kklugin"
             task.extension.set(extension.plugin)
             task.outputFile.set(target.layout.projectDirectory.file("src/main/resources/paper-plugin.yml"))
