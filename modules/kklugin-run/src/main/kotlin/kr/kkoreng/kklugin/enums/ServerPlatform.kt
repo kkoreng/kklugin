@@ -1,21 +1,10 @@
 package kr.kkoreng.kklugin.enums
 
-enum class ServerPlatform(val repoUrl: String, val dependency: String) {
+enum class ServerPlatform {
 
-    SPIGOT(
-        repoUrl = "",
-        dependency = ""
-    ),
-    PAPER(
-        repoUrl = "",
-        dependency = ""
-    ),
-    PURPUR(
-        repoUrl = "",
-        dependency = ""
-    ),
-    PUFFERFISH(
-        repoUrl = "",
-        dependency = ""
-    )
+//    SPIGOT, // 추후 지원 예정 , BuildTools 필요
+    PAPER,
+    FOLIA,
+    PURPUR,
+    PUFFERFISH
 }
