@@ -1,10 +1,12 @@
 [versions]
 kotlin = "2.3.0"
 shadow = "9.4.1"
+gson = "2.13.2"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 shadow-gradle-plugin = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "shadow" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 
 [plugins]
 shadow-jar = { id = "com.gradleup.shadow", version.ref  = "shadow" }

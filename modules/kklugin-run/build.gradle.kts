@@ -2,6 +2,10 @@ plugins {
     id("kr.kkoreng.kklugin")
 }
 
+dependencies {
+    implementation(libs.gson)
+}
+
 /*
 gradlePlugin {
     website.set("")

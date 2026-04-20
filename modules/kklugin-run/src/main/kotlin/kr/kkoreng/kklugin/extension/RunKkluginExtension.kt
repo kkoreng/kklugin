@@ -1,6 +1,11 @@
 package kr.kkoreng.kklugin.extension
 
-abstract class RunKkluginExtension {
+import kr.kkoreng.kklugin.core.extension.KkluginExtension
+import org.gradle.api.model.ObjectFactory
+import javax.inject.Inject
+
+abstract class RunKkluginExtension @Inject constructor(objects: ObjectFactory): KkluginExtension(objects) {
+
 
 }
 
@@ -21,8 +26,8 @@ abstract class RunKkluginExtension {
  *   platform: ProxyPlatform
  *   serverDirectory
  *   jvmArgs
- *   port
  *   javaPath
+ *   port
  *
  *   backends("lobby") {
  *      minecraftVersion
