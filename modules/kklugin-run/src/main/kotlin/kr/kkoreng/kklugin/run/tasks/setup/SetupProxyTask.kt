@@ -1,4 +1,4 @@
-package kr.kkoreng.kklugin.tasks.setup
+package kr.kkoreng.kklugin.run.tasks.setup
 
 import org.gradle.api.DefaultTask
 

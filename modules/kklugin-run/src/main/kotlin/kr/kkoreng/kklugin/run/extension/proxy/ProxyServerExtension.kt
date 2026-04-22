@@ -1,8 +1,8 @@
-package kr.kkoreng.kklugin.extension.proxy
+package kr.kkoreng.kklugin.run.extension.proxy
 
-import kr.kkoreng.kklugin.enums.ProxyPlatform
-import kr.kkoreng.kklugin.extension.server.BackendServerExtension
-import kr.kkoreng.kklugin.extension.server.ServerBaseExtension
+import kr.kkoreng.kklugin.run.enums.ProxyPlatform
+import kr.kkoreng.kklugin.run.extension.server.BackendServerExtension
+import kr.kkoreng.kklugin.run.extension.server.ServerBaseExtension
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property

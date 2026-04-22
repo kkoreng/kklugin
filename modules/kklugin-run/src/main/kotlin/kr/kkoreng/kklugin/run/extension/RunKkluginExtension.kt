@@ -1,11 +1,16 @@
-package kr.kkoreng.kklugin.extension
+package kr.kkoreng.kklugin.run.extension
 
 import kr.kkoreng.kklugin.core.extension.KkluginExtension
+import kr.kkoreng.kklugin.run.extension.server.ServerExtension
+import org.gradle.api.Action
 import org.gradle.api.model.ObjectFactory
 import javax.inject.Inject
 
-abstract class RunKkluginExtension @Inject constructor(objects: ObjectFactory): KkluginExtension(objects) {
+abstract class RunKkluginExtension @Inject constructor(objects: ObjectFactory) : KkluginExtension(objects) {
 
+    val server: ServerExtension = objects.newInstance(ServerExtension::class.java)
+
+    fun runServer(action: Action<ServerExtension>) = action.execute(server)
 
 }
 

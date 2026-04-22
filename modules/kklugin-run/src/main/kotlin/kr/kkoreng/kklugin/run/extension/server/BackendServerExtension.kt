@@ -1,6 +1,6 @@
-package kr.kkoreng.kklugin.extension.server
+package kr.kkoreng.kklugin.run.extension.server
 
-import kr.kkoreng.kklugin.enums.ServerPlatform
+import kr.kkoreng.kklugin.run.enums.ServerPlatform
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
