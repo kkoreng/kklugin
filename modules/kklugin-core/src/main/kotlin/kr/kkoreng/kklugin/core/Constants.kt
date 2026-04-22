@@ -8,7 +8,7 @@ object Constants {
     }
 
     object ServerPlatform { // 서버 jar 다운로드용 API
-        const val PAPER_MC_API_BASE = "https://api.papermc.io/v2/projects"
-        const val PURPUR_API_BASE = "https://api.pl3x.net/v2/purpur"
+        const val PAPER_MC_API_BASE = "https://fill.papermc.io/v3/projects"
+        const val PURPUR_API_BASE = "https://api.purpurmc.org/v2/purpur"
     }
 }
