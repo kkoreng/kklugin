@@ -13,7 +13,7 @@ class BukkitPlugin : KkluginPlugin<BukkitKkluginExtension>() {
 
     override fun onApply(target: Project, extension: BukkitKkluginExtension) {
         target.tasks.register("generateMetadata", GeneratePluginYamlTask::class.java) { task ->
-                    task.group = "kklugin"
+                    task.group = "kklugin plugin"
             task.extension.set(extension.plugin)
             task.outputFile.set(target.layout.projectDirectory.file("src/main/resources/plugin.yml"))
         }

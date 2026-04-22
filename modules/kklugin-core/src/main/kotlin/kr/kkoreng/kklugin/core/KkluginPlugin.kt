@@ -6,7 +6,6 @@ import kr.kkoreng.kklugin.core.extension.KkluginExtension
 import kr.kkoreng.kklugin.core.setup.tasks.SetupPluginTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.Task
 
 abstract class KkluginPlugin<E : KkluginExtension> : Plugin<Project> {
 
@@ -29,13 +28,13 @@ abstract class KkluginPlugin<E : KkluginExtension> : Plugin<Project> {
         }
 
         target.tasks.register("buildPlugin", BuildPluginJarTask::class.java) { task ->
-            task.group = "kklugin"
+            task.group = "kklugin build"
             task.extension.set(extension.build)
             task.dependsOn("shadowJar")
         }
 
         target.tasks.register("setupPlugin", SetupPluginTask::class.java) { task ->
-            task.group = "kklugin"
+            task.group = "kklugin plugin"
 
         }
 
