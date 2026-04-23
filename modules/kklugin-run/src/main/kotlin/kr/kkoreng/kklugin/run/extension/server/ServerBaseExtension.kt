@@ -1,4 +1,4 @@
-package kr.kkoreng.kklugin.run.extension.server
+package com.kkoreng.kklugin.run.extension.server
 
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
@@ -10,6 +10,7 @@ import javax.inject.Inject
 abstract class ServerBaseExtension @Inject constructor(objects: ObjectFactory) {
 
     @get:Input val minecraftVersion: Property<String> = objects.property(String::class.java)
+    @get:Input @get:Optional val buildVersion: Property<String> = objects.property(String::class.java)
 
     @get:Input @get:Optional val jvmArgs: ListProperty<String> = objects.listProperty(String::class.java)
     @get:Input @get:Optional val javaPath: Property<String> = objects.property(String::class.java)

@@ -1,6 +1,6 @@
-package kr.kkoreng.kklugin.run.extension.server
+package com.kkoreng.kklugin.run.extension.server
 
-import kr.kkoreng.kklugin.run.enums.ServerPlatform
+import com.kkoreng.kklugin.run.enums.ServerPlatform
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
@@ -11,7 +11,6 @@ abstract class ServerExtension @Inject constructor(objects: ObjectFactory) : Ser
 
     @get:Input val serverDirectory: Property<String> = objects.property(String::class.java).convention("run/server")
     @get:Input val platform: Property<ServerPlatform> = objects.property(ServerPlatform::class.java)
-    @get:Input @get:Optional val build: Property<String> = objects.property(String::class.java)
     @get:Input val onlineMode: Property<Boolean> = objects.property(Boolean::class.java).convention(true)
     @get:Input val acceptEula: Property<Boolean> = objects.property(Boolean::class.java).convention(false)
 

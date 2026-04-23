@@ -1,9 +1,10 @@
-package kr.kkoreng.kklugin.run.extension.server
+package com.kkoreng.kklugin.run.extension.server
 
-import kr.kkoreng.kklugin.run.enums.ServerPlatform
+import com.kkoreng.kklugin.run.enums.ServerPlatform
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
 import javax.inject.Inject
 
 abstract class BackendServerExtension @Inject constructor(
@@ -16,6 +17,6 @@ abstract class BackendServerExtension @Inject constructor(
     @get:Input val onlineMode: Property<Boolean> = objects.property(Boolean::class.java).convention(true)
     @get:Input val acceptEula: Property<Boolean> = objects.property(Boolean::class.java).convention(false)
 
-    fun getName(): String = name
+    @Internal fun getName(): String = name
 
 }
