@@ -1,8 +1,8 @@
-package kr.kkoreng.kklugin.run.platform.server
+package com.kkoreng.kklugin.run.platform.resolver
 
-import kr.kkoreng.kklugin.run.enums.ServerPlatform
-import kr.kkoreng.kklugin.run.platform.server.provider.PaperMCDownloadUrlProvider
-import kr.kkoreng.kklugin.run.platform.server.provider.PurpurDownloadUrlProvider
+import com.kkoreng.kklugin.run.enums.ServerPlatform
+import com.kkoreng.kklugin.run.platform.impl.PaperMCDownloadUrlProvider
+import com.kkoreng.kklugin.run.platform.impl.PurpurDownloadUrlProvider
 
 class ServerPlatformResolver {
     private val providers = mapOf(
