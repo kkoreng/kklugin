@@ -1,13 +1,7 @@
-package kr.kkoreng.kklugin.run.enums
+package com.kkoreng.kklugin.run.enums
 
-enum class ProxyPlatform(val repoUrl: String, val dependency: String) {
+enum class ProxyPlatform {
 
-    VELOCITY(
-        repoUrl = "",
-        dependency = ""
-    ),
-    BUNGEECORD(
-        repoUrl = "",
-        dependency = ""
-    )
+//    BUNGEECORD, // 추후 지원 예정
+    VELOCITY
 }
