@@ -1,9 +1,9 @@
-package kr.kkoreng.kklugin.paper
+package com.kkoreng.kklugin.paper
 
-import kr.kkoreng.kklugin.core.KkluginPlugin
-import kr.kkoreng.kklugin.core.setup.tasks.SetupPluginTask
-import kr.kkoreng.kklugin.paper.extension.PaperKkluginExtension
-import kr.kkoreng.kklugin.paper.plugin.tasks.GeneratePaperPluginYamlTask
+import com.kkoreng.kklugin.core.KkluginPlugin
+import com.kkoreng.kklugin.core.setup.tasks.SetupPluginTask
+import com.kkoreng.kklugin.paper.extension.PaperKkluginExtension
+import com.kkoreng.kklugin.paper.plugin.tasks.GeneratePaperPluginYamlTask
 import org.gradle.api.Project
 
 class PaperPlugin : KkluginPlugin<PaperKkluginExtension>() {

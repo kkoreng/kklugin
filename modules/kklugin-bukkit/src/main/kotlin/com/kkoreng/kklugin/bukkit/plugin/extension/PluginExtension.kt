@@ -1,9 +1,9 @@
-package kr.kkoreng.kklugin.bukkit.plugin.extension
+package com.kkoreng.kklugin.bukkit.plugin.extension
 
-import kr.kkoreng.kklugin.bukkit.plugin.extension.spec.CommandSpec
-import kr.kkoreng.kklugin.bukkit.plugin.extension.enum.LoadType
-import kr.kkoreng.kklugin.bukkit.plugin.extension.enum.PermissionDefault
-import kr.kkoreng.kklugin.bukkit.plugin.extension.spec.PermissionSpec
+import com.kkoreng.kklugin.bukkit.plugin.extension.spec.CommandSpec
+import com.kkoreng.kklugin.bukkit.plugin.extension.enum.LoadType
+import com.kkoreng.kklugin.bukkit.plugin.extension.enum.PermissionDefault
+import com.kkoreng.kklugin.bukkit.plugin.extension.spec.PermissionSpec
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty

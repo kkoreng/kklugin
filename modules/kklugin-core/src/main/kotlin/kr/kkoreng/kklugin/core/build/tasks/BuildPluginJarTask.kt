@@ -1,7 +1,7 @@
-package kr.kkoreng.kklugin.core.build.tasks
+package com.kkoreng.kklugin.core.build.tasks
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import kr.kkoreng.kklugin.core.build.extension.BuildPluginJarExtension
+import com.kkoreng.kklugin.core.build.extension.BuildPluginJarExtension
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Nested

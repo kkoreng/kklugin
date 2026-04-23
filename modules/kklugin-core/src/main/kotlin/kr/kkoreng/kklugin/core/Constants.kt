@@ -1,4 +1,4 @@
-package kr.kkoreng.kklugin.core
+package com.kkoreng.kklugin.core
 
 object Constants {
 

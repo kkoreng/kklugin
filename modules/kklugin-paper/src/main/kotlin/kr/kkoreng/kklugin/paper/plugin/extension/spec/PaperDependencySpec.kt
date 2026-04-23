@@ -1,6 +1,6 @@
-package kr.kkoreng.kklugin.paper.plugin.extension.spec
+package com.kkoreng.kklugin.paper.plugin.extension.spec
 
-import kr.kkoreng.kklugin.paper.plugin.extension.enum.RelativeLoadOrder
+import com.kkoreng.kklugin.paper.plugin.extension.enum.RelativeLoadOrder
 
 abstract class PaperDependencySpec(val name: String) {
     var load: RelativeLoadOrder = RelativeLoadOrder.OMIT

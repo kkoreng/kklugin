@@ -1,10 +1,10 @@
-package kr.kkoreng.kklugin.bukkit
+package com.kkoreng.kklugin.bukkit
 
-import kr.kkoreng.kklugin.bukkit.extension.BukkitKkluginExtension
-import kr.kkoreng.kklugin.bukkit.plugin.tasks.GeneratePluginYamlTask
-import kr.kkoreng.kklugin.core.Constants
-import kr.kkoreng.kklugin.core.KkluginPlugin
-import kr.kkoreng.kklugin.core.setup.tasks.SetupPluginTask
+import com.kkoreng.kklugin.bukkit.extension.BukkitKkluginExtension
+import com.kkoreng.kklugin.bukkit.plugin.tasks.GeneratePluginYamlTask
+import com.kkoreng.kklugin.core.Constants
+import com.kkoreng.kklugin.core.KkluginPlugin
+import com.kkoreng.kklugin.core.setup.tasks.SetupPluginTask
 import org.gradle.api.Project
 
 class BukkitPlugin : KkluginPlugin<BukkitKkluginExtension>() {

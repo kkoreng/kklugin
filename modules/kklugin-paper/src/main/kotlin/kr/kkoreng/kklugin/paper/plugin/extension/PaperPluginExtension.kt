@@ -1,9 +1,9 @@
-package kr.kkoreng.kklugin.paper.plugin.extension
+package com.kkoreng.kklugin.paper.plugin.extension
 
-import kr.kkoreng.kklugin.bukkit.plugin.extension.enum.LoadType
-import kr.kkoreng.kklugin.bukkit.plugin.extension.enum.PermissionDefault
-import kr.kkoreng.kklugin.bukkit.plugin.extension.spec.PermissionSpec
-import kr.kkoreng.kklugin.paper.plugin.extension.spec.PaperDependencySpec
+import com.kkoreng.kklugin.bukkit.plugin.extension.enum.LoadType
+import com.kkoreng.kklugin.bukkit.plugin.extension.enum.PermissionDefault
+import com.kkoreng.kklugin.bukkit.plugin.extension.spec.PermissionSpec
+import com.kkoreng.kklugin.paper.plugin.extension.spec.PaperDependencySpec
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty

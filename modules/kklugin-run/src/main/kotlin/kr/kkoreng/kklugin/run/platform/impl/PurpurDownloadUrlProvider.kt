@@ -1,7 +1,7 @@
-package kr.kkoreng.kklugin.run.platform.server.provider
+package com.kkoreng.kklugin.run.platform.impl
 
-import kr.kkoreng.kklugin.core.Constants
-import kr.kkoreng.kklugin.run.platform.PlatformDownloadUrlProvider
+import com.kkoreng.kklugin.core.Constants
+import com.kkoreng.kklugin.run.platform.PlatformDownloadUrlProvider
 
 class PurpurDownloadUrlProvider : PlatformDownloadUrlProvider {
 

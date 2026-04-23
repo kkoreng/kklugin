@@ -1,6 +1,6 @@
-package kr.kkoreng.kklugin.core.extension
+package com.kkoreng.kklugin.core.extension
 
-import kr.kkoreng.kklugin.core.build.extension.BuildPluginJarExtension
+import com.kkoreng.kklugin.core.build.extension.BuildPluginJarExtension
 import org.gradle.api.Action
 import org.gradle.api.model.ObjectFactory
 import javax.inject.Inject

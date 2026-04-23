@@ -1,4 +1,4 @@
-package kr.kkoreng.kklugin.core.build.extension
+package com.kkoreng.kklugin.core.build.extension
 
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty

@@ -1,7 +1,7 @@
-package kr.kkoreng.kklugin.bukkit.extension
+package com.kkoreng.kklugin.bukkit.extension
 
-import kr.kkoreng.kklugin.bukkit.plugin.extension.PluginExtension
-import kr.kkoreng.kklugin.core.extension.KkluginExtension
+import com.kkoreng.kklugin.bukkit.plugin.extension.PluginExtension
+import com.kkoreng.kklugin.core.extension.KkluginExtension
 import org.gradle.api.Action
 import org.gradle.api.model.ObjectFactory
 import javax.inject.Inject

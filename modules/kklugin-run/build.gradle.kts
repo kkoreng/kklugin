@@ -1,5 +1,5 @@
 plugins {
-    id("kr.kkoreng.kklugin")
+    id("com.kkoreng.kklugin")
 }
 
 dependencies {
@@ -10,8 +10,8 @@ dependencies {
 gradlePlugin {
     plugins {
         register("run") {
-            id = "kr.kkoreng.kklugin.run"
-            implementationClass = "kr.kkoreng.kklugin.run.RunPlugin"
+            id = "com.kkoreng.kklugin.run"
+            implementationClass = "com.kkoreng.kklugin.run.RunPlugin"
         }
     }
 }

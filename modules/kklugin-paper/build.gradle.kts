@@ -1,5 +1,5 @@
 plugins {
-    id("kr.kkoreng.kklugin")
+    id("com.kkoreng.kklugin")
 }
 
 dependencies {
@@ -9,8 +9,8 @@ dependencies {
 gradlePlugin {
     plugins {
         register("paper") {
-            id = "kr.kkoreng.kklugin.paper"
-            implementationClass = "kr.kkoreng.kklugin.paper.PaperPlugin"
+            id = "com.kkoreng.kklugin.paper"
+            implementationClass = "com.kkoreng.kklugin.paper.PaperPlugin"
         }
     }
 }

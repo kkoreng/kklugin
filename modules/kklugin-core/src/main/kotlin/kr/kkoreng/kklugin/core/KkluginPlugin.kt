@@ -1,9 +1,9 @@
-package kr.kkoreng.kklugin.core
+package com.kkoreng.kklugin.core
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import kr.kkoreng.kklugin.core.build.tasks.BuildPluginJarTask
-import kr.kkoreng.kklugin.core.extension.KkluginExtension
-import kr.kkoreng.kklugin.core.setup.tasks.SetupPluginTask
+import com.kkoreng.kklugin.core.build.tasks.BuildPluginJarTask
+import com.kkoreng.kklugin.core.extension.KkluginExtension
+import com.kkoreng.kklugin.core.setup.tasks.SetupPluginTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

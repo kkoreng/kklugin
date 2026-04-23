@@ -1,7 +1,7 @@
-package kr.kkoreng.kklugin.bukkit.plugin.tasks
+package com.kkoreng.kklugin.bukkit.plugin.tasks
 
-import kr.kkoreng.kklugin.bukkit.plugin.extension.PluginExtension
-import kr.kkoreng.kklugin.core.plugin.tasks.GenerateMetadataTask
+import com.kkoreng.kklugin.bukkit.plugin.extension.PluginExtension
+import com.kkoreng.kklugin.core.plugin.tasks.GenerateMetadataTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Nested
 
