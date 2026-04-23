@@ -1,8 +1,10 @@
-package kr.kkoreng.kklugin.run
+package com.kkoreng.kklugin.run
 
-import kr.kkoreng.kklugin.run.extension.RunKkluginExtension
-import kr.kkoreng.kklugin.run.extension.server.ServerExtension
-import kr.kkoreng.kklugin.run.tasks.setup.SetupServerTask
+import com.kkoreng.kklugin.run.extension.RunKkluginExtension
+import com.kkoreng.kklugin.run.extension.proxy.ProxyServerExtension
+import com.kkoreng.kklugin.run.extension.server.ServerExtension
+import com.kkoreng.kklugin.run.tasks.setup.SetupProxyTask
+import com.kkoreng.kklugin.run.tasks.setup.SetupServerTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
@@ -10,29 +12,36 @@ import org.gradle.api.plugins.ExtensionAware
 class RunPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
-        // bukkit과 함께 쓸 때 -> bukkit 플러그인이 먼저 적용되어야 함
-        target.pluginManager.withPlugin("kr.kkoreng.kklugin.bukkit") {
-            registerRunServer(target, (target.extensions.getByName("kklugin") as ExtensionAware)
-                .extensions.create("runServer", ServerExtension::class.java))
-        }
+        // kklugin-run을 kklugin-bukkit 또는 kklugin-paper와 함께 사용할 때
+        target.pluginManager.withPlugin("com.kkoreng.kklugin.bukkit") { registerAll(target) }
+        target.pluginManager.withPlugin("com.kkoreng.kklugin.paper") { registerAll(target) }
 
-        // paper와 함께 쓸 때 -> paper 플러그인이 먼저 적용되어야 함
-        target.pluginManager.withPlugin("kr.kkoreng.kklugin.paper") {
-            registerRunServer(target, (target.extensions.getByName("kklugin") as ExtensionAware)
-                .extensions.create("runServer", ServerExtension::class.java))
-        }
-
-        // 단독으로 쓸 때 ->
+        // kklugin-run을 단독으로 사용할 때
         if (target.extensions.findByName("kklugin") == null) {
             val ext = target.extensions.create("kklugin", RunKkluginExtension::class.java)
             registerRunServer(target, ext.server)
+            registerRunProxy(target, ext.proxy)
         }
+    }
+
+    private fun registerAll(target: Project) {
+        val kklugin = target.extensions.getByName("kklugin") as ExtensionAware
+        registerRunServer(target, kklugin.extensions.create("runServer",
+            ServerExtension::class.java))
+        registerRunProxy(target, kklugin.extensions.create("runProxy",
+            ProxyServerExtension::class.java))
     }
 
     private fun registerRunServer(target: Project, serverExt: ServerExtension) {
         target.tasks.register("setupServer", SetupServerTask::class.java) { task ->
             task.group = "kklugin server"
             task.extension.set(serverExt)
+        }
+    }
+    private fun registerRunProxy(target: Project, proxyExt: ProxyServerExtension) {
+        target.tasks.register("setupProxy", SetupProxyTask::class.java) { task ->
+            task.group = "kklugin server"
+            task.extension.set(proxyExt)
         }
     }
 }
