@@ -1,5 +1,6 @@
 package com.kkoreng.kklugin.run.tasks.setup
 
+import com.kkoreng.kklugin.core.Constants
 import com.kkoreng.kklugin.run.extension.proxy.ProxyServerExtension
 import com.kkoreng.kklugin.run.extension.server.BackendServerExtension
 import com.kkoreng.kklugin.run.platform.resolver.ProxyPlatformResolver
@@ -20,18 +21,18 @@ abstract class SetupProxyTask : AbstractSetupTask() {
     @get:Nested abstract val extension: Property<ProxyServerExtension>
 
     private fun downloadProxy(ext: ProxyServerExtension, proxyDir: File) {
-        val jarFile = proxyDir.resolve("server.jar")
+        val jarFile = proxyDir.resolve(Constants.FileNames.SERVER_JAR)
         if (jarFile.exists()) {
             println("proxy/server.jar already exists, skipping download.")
             return
         }
         val version = ext.buildVersion.orNull ?: ext.minecraftVersion.get()
-        val url = ProxyPlatformResolver().resolve(ext.platform.get(), version, "latest")
+        val url = ProxyPlatformResolver().resolve(ext.platform.get(), version, Constants.Defaults.BUILD_VERSION)
         download(url, jarFile)
     }
 
     private fun generateForwardingSecret(proxyDir: File): String {
-        val secretFile = proxyDir.resolve("forwarding.secret")
+        val secretFile = proxyDir.resolve(Constants.FileNames.FORWARDING_SECRET)
         if (secretFile.exists()) return secretFile.readText().trim()
         val secret = java.util.UUID.randomUUID().toString()
         secretFile.writeText(secret)
@@ -39,7 +40,7 @@ abstract class SetupProxyTask : AbstractSetupTask() {
     }
 
     private fun generateVelocityToml(ext: ProxyServerExtension, proxyDir: File) {
-        val tomlFile = proxyDir.resolve("velocity.toml")
+        val tomlFile = proxyDir.resolve(Constants.FileNames.VELOCITY_TOML)
         val serversBlock = ext.backends.joinToString("\n") { backend ->
             "${backend.getName()} = \"localhost:${backend.port.get()}\""
         }
@@ -50,7 +51,7 @@ abstract class SetupProxyTask : AbstractSetupTask() {
             ?: ""
 
         if (!tomlFile.exists()) {
-            val template = javaClass.getResourceAsStream("/templates/velocity.toml.template")
+            val template = javaClass.getResourceAsStream(Constants.Templates.VELOCITY_TOML)
                 ?.bufferedReader()?.readText() ?: error("velocity.toml template not found")
 
             tomlFile.writeText(
@@ -77,11 +78,11 @@ abstract class SetupProxyTask : AbstractSetupTask() {
         backendDir.mkdirs()
 
         // server.jar 다운로드
-        val jarFile = backendDir.resolve("server.jar")
+        val jarFile = backendDir.resolve(Constants.FileNames.SERVER_JAR)
         if (jarFile.exists()) {
             println("${backend.getName()}/server.jar already exists, skipping download.")
         } else {
-            val url = ServerPlatformResolver().resolve(backend.platform.get(), backend.minecraftVersion.get(), "latest")
+            val url = ServerPlatformResolver().resolve(backend.platform.get(), backend.minecraftVersion.get(), Constants.Defaults.BUILD_VERSION)
             download(url, jarFile)
         }
 
@@ -89,26 +90,24 @@ abstract class SetupProxyTask : AbstractSetupTask() {
         eulaSetup(backend.acceptEula.get(), backendDir)
 
         // server.properties
-        val propertiesFile = backendDir.resolve("server.properties")
+        val propertiesFile = backendDir.resolve(Constants.FileNames.SERVER_PROPERTIES)
         if (!propertiesFile.exists()) {
-            propertiesFile.writeText("""
-                online-mode=false
-                server-port=${backend.port.get()}
-            """.trimIndent())
+            val template = javaClass.getResourceAsStream(Constants.Templates.SERVER_PROPERTIES)
+                ?.bufferedReader()?.readText() ?: error("server.properties template not found")
+
+            propertiesFile.writeText(
+                template.replace("{port}", backend.port.get().toString())
+            )
         }
 
         // paper-global.yml (Paper, Folia, Purpur 공통)
         val configDir = backendDir.resolve("config")
         configDir.mkdirs()
-        val paperGlobal = configDir.resolve("paper-global.yml")
+        val paperGlobal = configDir.resolve(Constants.FileNames.PAPER_GLOBAL_YML)
         if (!paperGlobal.exists()) {
-            paperGlobal.writeText("""
-                proxies:
-                  velocity:
-                    enabled: true
-                    online-mode: true
-                    secret: "$secret"
-            """.trimIndent())
+            val template = javaClass.getResourceAsStream(Constants.Templates.PAPER_GLOBAL_YML)
+                ?.bufferedReader()?.readText() ?: error("paper-global.yml template not found")
+            paperGlobal.writeText(template.replace("{secret}", secret))
         }
     }
 

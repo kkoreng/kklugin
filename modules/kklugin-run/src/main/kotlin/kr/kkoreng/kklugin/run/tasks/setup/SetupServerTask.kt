@@ -1,5 +1,6 @@
 package com.kkoreng.kklugin.run.tasks.setup
 
+import com.kkoreng.kklugin.core.Constants
 import com.kkoreng.kklugin.run.extension.server.ServerExtension
 import com.kkoreng.kklugin.run.platform.resolver.ServerPlatformResolver
 import org.gradle.api.provider.Property
@@ -10,19 +11,17 @@ abstract class SetupServerTask: AbstractSetupTask() {
 
     @get:Nested abstract val extension: Property<ServerExtension>
 
-    private fun downloadServer(ext: ServerExtension) {
-        val version = ext.minecraftVersion.get()
-        val build = ext.buildVersion.orNull ?: "latest"
-        val platform = ext.platform.get()
-        val serverDir = project.file(ext.serverDirectory.get())
-        val jarFile = serverDir.resolve("server.jar")
-
+    private fun downloadServer(ext: ServerExtension, serverDir: java.io.File) {
+        val jarFile = serverDir.resolve(Constants.FileNames.SERVER_JAR)
         if (jarFile.exists()) {
             println("server.jar already exists, skipping download.")
             return
         }
-
-        val url = ServerPlatformResolver().resolve(platform, version, build)
+        val url = ServerPlatformResolver().resolve(
+            ext.platform.get(),
+            ext.minecraftVersion.get(),
+            ext.buildVersion.orNull ?: Constants.Defaults.BUILD_VERSION
+        )
         download(url, jarFile)
     }
 
@@ -32,8 +31,7 @@ abstract class SetupServerTask: AbstractSetupTask() {
         val serverDir = ext.serverDirectory.orNull?.let { project.file(it) } ?: return
 
         directorySetup(serverDir)
-        downloadServer(ext)
+        downloadServer(ext, serverDir)
         eulaSetup(ext.acceptEula.get(), serverDir)
-
     }
 }

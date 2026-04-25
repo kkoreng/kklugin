@@ -1,5 +1,6 @@
 package com.kkoreng.kklugin.run
 
+import com.kkoreng.kklugin.core.Constants
 import com.kkoreng.kklugin.run.extension.RunKkluginExtension
 import com.kkoreng.kklugin.run.extension.proxy.ProxyServerExtension
 import com.kkoreng.kklugin.run.extension.server.ServerExtension
@@ -34,13 +35,13 @@ class RunPlugin : Plugin<Project> {
 
     private fun registerRunServer(target: Project, serverExt: ServerExtension) {
         target.tasks.register("setupServer", SetupServerTask::class.java) { task ->
-            task.group = "kklugin server"
+            task.group = Constants.Defaults.TASK_GROUP
             task.extension.set(serverExt)
         }
     }
     private fun registerRunProxy(target: Project, proxyExt: ProxyServerExtension) {
         target.tasks.register("setupProxy", SetupProxyTask::class.java) { task ->
-            task.group = "kklugin server"
+            task.group = Constants.Defaults.TASK_GROUP
             task.extension.set(proxyExt)
         }
     }

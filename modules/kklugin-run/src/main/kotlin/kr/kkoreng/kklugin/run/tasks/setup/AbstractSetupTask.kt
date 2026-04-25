@@ -1,5 +1,6 @@
 package com.kkoreng.kklugin.run.tasks.setup
 
+import com.kkoreng.kklugin.core.Constants
 import org.gradle.api.DefaultTask
 import java.io.File
 import java.net.URL
@@ -21,12 +22,12 @@ abstract class AbstractSetupTask: DefaultTask() {
 
     protected fun eulaSetup(acceptEula: Boolean, serverDir: File) {
         if (!acceptEula) return
-        serverDir.resolve("eula.txt").writeText("eula=true")
+        serverDir.resolve(Constants.FileNames.EULA_TXT).writeText("eula=true")
     }
 
     protected fun addGitignore(entry: String) {
         val header = "### Kklugin ###"
-        val gitignore = project.rootDir.resolve(".gitignore")
+        val gitignore = project.rootDir.resolve(Constants.FileNames.GITIGNORE)
 
         if (!gitignore.exists()) {
             gitignore.writeText("$header\n$entry")
