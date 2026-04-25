@@ -19,6 +19,11 @@ abstract class ProxyServerExtension @Inject constructor(objects: ObjectFactory) 
 
     @get:Input @get:Optional val defaultServer: Property<String> = objects.property(String::class.java)
 
-    @get:Nested val backends: NamedDomainObjectContainer<BackendServerExtension> = objects.domainObjectContainer(BackendServerExtension::class.java)
+    // backend 서버가 register될 때마다 포트를 25566부터 자동 증가 할당 + 직접 port를 지정하면 convention 값이 덮어씌워짐
+    @get:Nested val backends: NamedDomainObjectContainer<BackendServerExtension> =
+        objects.domainObjectContainer(BackendServerExtension::class.java).also { container ->
+            val nextPort = java.util.concurrent.atomic.AtomicInteger(25566)
+            container.whenObjectAdded { it.port.convention(nextPort.getAndIncrement()) }
+        }
 
 }

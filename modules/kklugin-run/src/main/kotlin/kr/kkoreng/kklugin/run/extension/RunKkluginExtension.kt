@@ -43,7 +43,6 @@ abstract class RunKkluginExtension @Inject constructor(objects: ObjectFactory) :
  *      jvmArgs
  *      javaPath
  *      port
- *      onlineMode
  *      acceptEula
  *   }
  *
@@ -53,7 +52,6 @@ abstract class RunKkluginExtension @Inject constructor(objects: ObjectFactory) :
  *      jvmArgs
  *      javaPath
  *      port
- *      onlineMode
  *      acceptEula
  *   }
  *

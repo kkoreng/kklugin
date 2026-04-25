@@ -14,7 +14,6 @@ abstract class BackendServerExtension @Inject constructor(
 
     @get:Input val serverDirectory: Property<String> = objects.property(String::class.java).convention("run/backends/$name")
     @get:Input val platform: Property<ServerPlatform> = objects.property(ServerPlatform::class.java)
-    @get:Input val onlineMode: Property<Boolean> = objects.property(Boolean::class.java).convention(true)
     @get:Input val acceptEula: Property<Boolean> = objects.property(Boolean::class.java).convention(false)
 
     @Internal fun getName(): String = name
