@@ -10,7 +10,6 @@ abstract class ServerExtension @Inject constructor(objects: ObjectFactory) : Ser
 
     @get:Input val serverDirectory: Property<String> = objects.property(String::class.java).convention("run/server")
     @get:Input val platform: Property<ServerPlatform> = objects.property(ServerPlatform::class.java)
-    @get:Input val onlineMode: Property<Boolean> = objects.property(Boolean::class.java).convention(true)
     @get:Input val acceptEula: Property<Boolean> = objects.property(Boolean::class.java).convention(false)
 
 }

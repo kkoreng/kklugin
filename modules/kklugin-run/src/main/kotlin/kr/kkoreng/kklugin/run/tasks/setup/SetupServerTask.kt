@@ -14,7 +14,7 @@ abstract class SetupServerTask: AbstractSetupTask() {
     private fun downloadServer(ext: ServerExtension, serverDir: java.io.File) {
         val jarFile = serverDir.resolve(Constants.FileNames.SERVER_JAR)
         if (jarFile.exists()) {
-            println("server.jar already exists, skipping download.")
+            println("server.jYar already exists, skipping download.")
             return
         }
         val url = ServerPlatformResolver().resolve(
