@@ -1,0 +1,21 @@
+package com.kkoreng.kklugin.run.extension.server
+
+import com.kkoreng.kklugin.run.enums.ServerPlatform
+import org.gradle.api.model.ObjectFactory
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
+import javax.inject.Inject
+
+abstract class BackendServerExtension @Inject constructor(
+    private val name: String,
+    objects: ObjectFactory
+) : ServerBaseExtension(objects) {
+
+    @get:Input val serverDirectory: Property<String> = objects.property(String::class.java).convention("run/backends/$name")
+    @get:Input val platform: Property<ServerPlatform> = objects.property(ServerPlatform::class.java)
+    @get:Input val acceptEula: Property<Boolean> = objects.property(Boolean::class.java).convention(false)
+
+    @Internal fun getName(): String = name
+
+}
