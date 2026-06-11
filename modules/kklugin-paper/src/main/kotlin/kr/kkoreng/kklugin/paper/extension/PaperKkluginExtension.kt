@@ -6,7 +6,7 @@ import org.gradle.api.Action
 import org.gradle.api.model.ObjectFactory
 import javax.inject.Inject
 
-    abstract class PaperKkluginExtension @Inject constructor(objects: ObjectFactory) : KkluginExtension(objects) {
+abstract class PaperKkluginExtension @Inject constructor(objects: ObjectFactory) : KkluginExtension(objects) {
 
     val plugin: PaperPluginExtension = objects.newInstance(PaperPluginExtension::class.java)
     fun plugin(action: Action<PaperPluginExtension>) = action.execute(plugin)

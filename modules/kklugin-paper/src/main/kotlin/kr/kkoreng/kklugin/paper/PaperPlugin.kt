@@ -1,5 +1,6 @@
 package kr.kkoreng.kklugin.paper
 
+import kr.kkoreng.kklugin.core.Constants
 import kr.kkoreng.kklugin.core.KkluginPlugin
 import kr.kkoreng.kklugin.core.setup.tasks.SetupPluginTask
 import kr.kkoreng.kklugin.paper.extension.PaperKkluginExtension
@@ -11,15 +12,15 @@ class PaperPlugin : KkluginPlugin<PaperKkluginExtension>() {
     override val extensionClass = PaperKkluginExtension::class.java
 
     override fun onApply(target: Project, extension: PaperKkluginExtension) {
-target.tasks.register("generateMetadata", GeneratePaperPluginYamlTask::class.java) { task ->
+        target.tasks.register("generateMetadata", GeneratePaperPluginYamlTask::class.java) { task ->
             task.group = "kklugin"
             task.extension.set(extension.plugin)
             task.outputFile.set(target.layout.projectDirectory.file("src/main/resources/paper-plugin.yml"))
         }
 
         target.tasks.named("setupPlugin", SetupPluginTask::class.java) { task ->
-            task.repositoryUrl.set("https://repo.papermc.io/repository/maven-public/")
-            task.dependency.set(extension.plugin.minecraftVersion.map { "io.papermc.paper:paper-api:$it-R0.1-SNAPSHOT" })
+            task.repositoryUrl.set(Constants.Paper.REPO_URL)
+            task.dependency.set(extension.plugin.minecraftVersion.map { Constants.Paper.API_DEPENDENCY.format(it) })
             task.dependsOn("generateMetadata")
         }
     }
