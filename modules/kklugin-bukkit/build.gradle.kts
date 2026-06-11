@@ -1,5 +1,5 @@
 plugins {
-    id("kr.kkoreng.kklugin")
+    id("com.kkoreng.kklugin")
 }
 
 gradlePlugin {
@@ -7,8 +7,8 @@ gradlePlugin {
     vcsUrl.set("")
     plugins {
         register("bukkit") {
-            id = "kr.kkoreng.kklugin.bukkit"
-            implementationClass = "kr.kkoreng.kklugin.bukkit.BukkitPlugin"
+            id = "com.kkoreng.kklugin.bukkit"
+            implementationClass = "com.kkoreng.kklugin.bukkit.BukkitPlugin"
         }
     }
 }

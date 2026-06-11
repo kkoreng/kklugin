@@ -1,5 +1,5 @@
 plugins {
-    id("kr.kkoreng.kklugin")
+    id("com.kkoreng.kklugin")
     alias(libs.plugins.shadow.jar)
 }
 
