@@ -6,7 +6,6 @@ import java.io.File
 
 abstract class AbstractRunTask : DefaultTask() {
 
-
     protected fun buildProgressArgs(
         javaPath: String,
         jvmArgs: List<String>,
@@ -23,7 +22,6 @@ abstract class AbstractRunTask : DefaultTask() {
         label: String,
         color: AnsiColor
     ): Process {
-        // todo: 로직 구현 필요
 
     }
 
