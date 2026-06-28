@@ -13,7 +13,8 @@ abstract class SetupPluginTask : DefaultTask() {
     @TaskAction
     fun setupPlugin() {
         val buildGradleFile = project.buildFile
-        if (!buildGradleFile.exists()) return
+        if (!buildGradleFile.exists()) error("[kklugin] build.gradle.kts 파일을 찾을 수 없습니다.")
+        if (!dependency.isPresent) error("[kklugin] minecraftVersion이 설정되지 않았습니다. kklugin { plugin { minecraftVersion.set(\"1.21.4\") } } 를 설정해주세요.")
 
         val repo = repositoryUrl.get()
         val dep = dependency.get()

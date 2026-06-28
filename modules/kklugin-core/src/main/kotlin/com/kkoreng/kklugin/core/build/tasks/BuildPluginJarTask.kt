@@ -16,7 +16,8 @@ abstract class BuildPluginJarTask: DefaultTask() {
     fun buildPlugin() {
         val ext = extension.get()
 
-        val outputDir = ext.outputDirectory.orNull?.let { project.file(it) } ?: return
+        val outputDir = ext.outputDirectory.orNull?.let { project.file(it) }
+            ?: error("[kklugin] build.outputDirectory가 설정되지 않았습니다. build.gradle.kts에서 kklugin { build { outputDirectory.set(\"...\") } } 를 설정해주세요.")
 
         val jarTask = if (ext.shadow.get()) {
             project.pluginManager.apply("com.gradleup.shadow")

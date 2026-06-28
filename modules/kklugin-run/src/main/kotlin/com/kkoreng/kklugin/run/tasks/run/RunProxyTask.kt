@@ -17,11 +17,14 @@ abstract class RunProxyTask : AbstractRunTask() {
     @TaskAction
     fun execute() {
         val ext = extension.get()
-        val colors = AnsiColor.entries.filter { it != AnsiColor.CYAN && it != AnsiColor.RESET } // CYAN: 프록시용, RESET: 색상 초기화 코드
+        val colors = AnsiColor.entries.filter { it != AnsiColor.CYAN && it != AnsiColor.RESET }
         val processes = mutableListOf<Process>()
 
         // 프록시 실행
         val proxyDir = project.file(ext.serverDirectory.get())
+        if (!proxyDir.resolve(com.kkoreng.kklugin.core.Constants.FileNames.SERVER_JAR).exists()) {
+            error("[kklugin] proxy server.jar가 없습니다. 먼저 setupProxy를 실행해주세요.")
+        }
         val proxyArgs = buildProgressArgs(
             ext.javaPath.orElse("java").get(),
             ext.jvmArgs.get(),
@@ -32,12 +35,15 @@ abstract class RunProxyTask : AbstractRunTask() {
         // 백엔드 서버들 실행
         ext.backends.forEachIndexed { index, backend ->
             val workingDir = project.file(backend.serverDirectory.get())
+            if (!workingDir.resolve(com.kkoreng.kklugin.core.Constants.FileNames.SERVER_JAR).exists()) {
+                error("[kklugin] ${backend.getName()} server.jar가 없습니다. 먼저 setupProxy를 실행해주세요.")
+            }
             val args = buildProgressArgs(
                 backend.javaPath.orElse("java").get(),
                 backend.jvmArgs.get(),
                 workingDir
             )
-            processes.add(startProcess(args, workingDir, backend.getName(), colors[index % colors.size])) // AnsiColor.kt에 있는 색상을 순환한다 (CYAN, RESET 제외)
+            processes.add(startProcess(args, workingDir, backend.getName(), colors[index % colors.size]))
         }
 
         processes.forEach { it.waitFor() }

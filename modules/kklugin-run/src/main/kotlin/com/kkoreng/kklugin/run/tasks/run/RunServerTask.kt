@@ -15,6 +15,11 @@ abstract class RunServerTask : AbstractRunTask() {
     fun execute() {
         val ext = extension.get()
         val workingDir = project.file(ext.serverDirectory.get())
+
+        if (!workingDir.resolve(com.kkoreng.kklugin.core.Constants.FileNames.SERVER_JAR).exists()) {
+            error("[kklugin] server.jar가 없습니다. 먼저 setupServer를 실행해주세요.")
+        }
+
         val args = buildProgressArgs(
             ext.javaPath.orElse("java").get(),
             ext.jvmArgs.get(),
