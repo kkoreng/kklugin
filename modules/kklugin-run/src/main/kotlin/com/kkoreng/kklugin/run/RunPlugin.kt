@@ -4,6 +4,8 @@ import com.kkoreng.kklugin.core.Constants
 import com.kkoreng.kklugin.run.extension.RunKkluginExtension
 import com.kkoreng.kklugin.run.extension.proxy.ProxyServerExtension
 import com.kkoreng.kklugin.run.extension.server.ServerExtension
+import com.kkoreng.kklugin.run.tasks.run.RunProxyTask
+import com.kkoreng.kklugin.run.tasks.run.RunServerTask
 import com.kkoreng.kklugin.run.tasks.setup.SetupProxyTask
 import com.kkoreng.kklugin.run.tasks.setup.SetupServerTask
 import org.gradle.api.Plugin
@@ -38,11 +40,22 @@ class RunPlugin : Plugin<Project> {
             task.group = Constants.Defaults.TASK_GROUP
             task.extension.set(serverExt)
         }
+        target.tasks.register("runServer", RunServerTask::class.java) { task ->
+            task.group = Constants.Defaults.TASK_GROUP
+            task.extension.set(serverExt)
+            task.dependsOn("setupServer")
+        }
     }
+
     private fun registerRunProxy(target: Project, proxyExt: ProxyServerExtension) {
         target.tasks.register("setupProxy", SetupProxyTask::class.java) { task ->
             task.group = Constants.Defaults.TASK_GROUP
             task.extension.set(proxyExt)
+        }
+        target.tasks.register("runProxy", RunProxyTask::class.java) { task ->
+            task.group = Constants.Defaults.TASK_GROUP
+            task.extension.set(proxyExt)
+            task.dependsOn("setupProxy")
         }
     }
 }
