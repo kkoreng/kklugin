@@ -4,7 +4,7 @@ object Constants {
 
     object Defaults {
         const val BUILD_VERSION = "latest"
-        const val TASK_GROUP = "kklugin server"
+        const val TASK_GROUP = "kklugin"
     }
 
     object Paper {
