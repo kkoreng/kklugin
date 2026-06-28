@@ -40,7 +40,7 @@ abstract class GeneratePluginYamlTask : GenerateMetadataTask() {
             appendIfPresent("prefix", ext.prefix)
             appendList("libraries", ext.libraries.get())
             ext.foliaSupported.orNull?.let { appendLine("folia-supported: $it") }
-            appendIfPresent("paperPluginLoader", ext.paperPluginLoader)
+            appendIfPresent("paper-plugin-loader", ext.paperPluginLoader)
             ext.paperSkipLibraries.orNull?.let { appendLine("paper-skip-libraries: $it") }
 
             ext.defaultPermission.orNull?.let {

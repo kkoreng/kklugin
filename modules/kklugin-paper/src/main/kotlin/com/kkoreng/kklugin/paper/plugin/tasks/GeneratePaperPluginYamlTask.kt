@@ -2,6 +2,7 @@ package com.kkoreng.kklugin.paper.plugin.tasks
 
 import com.kkoreng.kklugin.core.plugin.tasks.GenerateMetadataTask
 import com.kkoreng.kklugin.paper.plugin.extension.PaperPluginExtension
+import com.kkoreng.kklugin.paper.plugin.extension.enum.RelativeLoadOrder
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Nested
 
@@ -45,7 +46,7 @@ abstract class GeneratePaperPluginYamlTask : GenerateMetadataTask() {
                     appendLine("  server:")
                     serverDeps.forEach { dep ->
                         appendLine("    ${dep.name}:")
-                        appendLine("      load: ${dep.load}")
+                        if (dep.load != RelativeLoadOrder.OMIT) appendLine("      load: ${dep.load}")
                         appendLine("      required: ${dep.required}")
                         appendLine("      join-classpath: ${dep.joinClasspath}")
                     }
@@ -54,7 +55,7 @@ abstract class GeneratePaperPluginYamlTask : GenerateMetadataTask() {
                     appendLine("  bootstrap:")
                     bootstrapDeps.forEach { dep ->
                         appendLine("    ${dep.name}:")
-                        appendLine("      load: ${dep.load}")
+                        if (dep.load != RelativeLoadOrder.OMIT) appendLine("      load: ${dep.load}")
                         appendLine("      required: ${dep.required}")
                         appendLine("      join-classpath: ${dep.joinClasspath}")
                     }
